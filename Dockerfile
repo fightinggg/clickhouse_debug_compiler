@@ -11,7 +11,6 @@ RUN apt-get install lsof vim rsync -y
 
 # Clang
 RUN DEBIAN_FRONTEND=noninteractive apt-get install git cmake ninja-build wget ccache gdb -y --fix-missing
-RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 # 这条指令安装的clang版本可能是不是18了 use clang-18 clang++-18
 
 # SSH
@@ -25,8 +24,14 @@ mkdir /run/sshd
 RUN echo root:123456 | chpasswd
 
 # Key
-## https://xiaoyu.blog.csdn.net/article/details/123840123?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-123840123-blog-51498724.pc_relevant_multi_platform_whitelistv4&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-123840123-blog-51498724.pc_relevant_multi_platform_whitelistv4&utm_relevant_index=1
+## https://xiaoyu.blog.csdn.net/article/details/123840123?
+## spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-123840
+## 123-blog-51498724.pc_relevant_multi_platform_whitelistv4&depth_1-utm_source=distribute.pc_relevant_t0.none-task-bl
+##og-2%7Edefault%7ECTRLIST%7ERate-1-123840123-blog-51498724.pc_relevant_multi_platform_whitelistv4&utm_relevant_index=1
 RUN echo -e "bind -x '\"\C-l\": clear;'" > /root/.bashrc
+
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3-linux-x86_64.tar.gz
+RUN tar -xzvf cmake-3.28.3-linux-x86_64.tar.gz
 
 # clickhouse src
 # RUN git clone --recursive https://github.com/ClickHouse/ClickHouse.git
