@@ -5,7 +5,7 @@
 ## step.1 进入容器
 
 ```
-docker run -it clickhouse_debug_compiler bash
+docker run --privileged  -d  -p 2222:22 -v $HOME:/root --name clickhouse_debug_env fightinggg/clickhouse_debug_env:master
 ```
 
 ## step.2 开始编译

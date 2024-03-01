@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - '**'
-      - 'clickhouse-*.*.*'
     tags:
       - 'v*.*.*'
   pull_request:
@@ -15,10 +14,10 @@ on:
       - 'master'
 
 env:
-  app: fightinggg/clickhouse_debug_compiler
+  app: fightinggg/clickhouse_debug_env
   dockerhub_username: fightinggg
   dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
-  short_description: '😊 https://github.com/fightinggg/clickhouse_debug_compiler'
+  short_description: '😊 https://github.com/fightinggg/clickhouse_debug_env'
   readme_file: 'README.md'
   Dockerfile: 'Dockerfile'
 
@@ -72,9 +71,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
